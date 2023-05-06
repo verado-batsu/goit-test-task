@@ -1,4 +1,4 @@
-import { CircularProgress } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 
 import { useGetUsersQuery, useUpdateUserMutation } from '../../redux/usersApi';
 import { UsersList } from './Tweets.styled';
@@ -7,8 +7,21 @@ import CardBg from '../../assets/images/card-bg.png';
 import { transformNumberComma } from './transformNumberComma';
 import { ButtonTweets } from './ButtonTweets/ButtonTweets';
 import { useEffect, useState } from 'react';
-import { addUsers } from '../../redux/usersSlice';
-import { useDispatch } from 'react-redux';
+import { addUsers, updateUsers } from '../../redux/usersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFilter, selectFilteredUsers } from '../../redux/selectors';
+import Filter from '../Filter/Filter';
+
+function filterUser(users, filter) {
+    switch (filter) {
+        case filter.follow:
+            return users.filter(({ following }) => following === false);
+        case filter.following:
+            return users.filter(({ following }) => following === true);
+        default:
+            return users;
+    }
+}
 
 export function Tweets() {
     const dispatch = useDispatch();
@@ -16,32 +29,46 @@ export function Tweets() {
     const { data, error, isFetching } = useGetUsersQuery(page);
     const [updateUser, result] = useUpdateUserMutation();
 
+    let users = useSelector(selectFilteredUsers);
+    const filter = useSelector(selectFilter);
+    const filteredUsers = filterUser(users, filter);
+    console.log(filteredUsers);
+    console.log(filter);
+
     useEffect(() => {
         if (data) {
-            dispatch(addUsers(data));
+            const users = data.map(user => {
+                const btnStatus =
+                    localStorage.getItem(`btnStatus${user.id}`) === 'false'
+                        ? false
+                        : true;
+                return {
+                    ...user,
+                    following: localStorage.getItem(`btnStatus${user.id}`)
+                        ? btnStatus
+                        : false,
+                };
+            });
+            dispatch(addUsers(users));
         }
     }, [data, dispatch]);
 
     function getBtnStatus(btnStatus, user) {
-        console.log(btnStatus);
         if (btnStatus) {
-            updateUser({ ...user, followers: user.followers + 1 });
+            const followers = user.followers + 1;
+            updateUser({ ...user, followers });
+            dispatch(
+                updateUsers({ id: user.id, status: btnStatus, followers })
+            );
         } else {
-            updateUser({ ...user, followers: user.followers - 1 });
+            const followers = user.followers - 1;
+            updateUser({ ...user, followers });
+            dispatch(
+                updateUsers({ id: user.id, status: btnStatus, followers })
+            );
         }
     }
 
-    // function handleClick(e) {
-    //     if (e.target.textContent === 'Next') {
-    //         setPage(prev => {
-    //             return prev + 1;
-    //         });
-    //     } else if (e.target.textContent === 'Prev') {
-    //         setPage(prev => {
-    //             return prev - 1;
-    //         });
-    //     }
-    // }
     function handleClick() {
         setPage(prev => {
             return prev + 1;
@@ -50,10 +77,11 @@ export function Tweets() {
 
     return (
         <>
+            <Filter />
             <UsersList>
-                {isFetching && !data && <CircularProgress />}
-                {data &&
-                    data.map(user => {
+                {isFetching && !filteredUsers && <CircularProgress />}
+                {filteredUsers &&
+                    filteredUsers.map(user => {
                         const {
                             id,
                             user: name,
@@ -103,9 +131,20 @@ export function Tweets() {
             <button onClick={handleClick} disabled={page === 4}>
                 Next
             </button> */}
-            <button onClick={handleClick} disabled={page === 1 || page === 4}>
-                Load More
-            </button>
+            <Box
+                sx={{
+                    textAlign: 'center',
+                }}
+            >
+                <Button
+                    variant="contained"
+                    size="large"
+                    onClick={handleClick}
+                    disabled={page === 4}
+                >
+                    Load More
+                </Button>
+            </Box>
         </>
     );
 }

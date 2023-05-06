@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const UsersList = styled.ul`
 	padding: 10px 0;
+	margin-bottom: 20px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;

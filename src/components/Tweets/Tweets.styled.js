@@ -1,16 +1,19 @@
 import styled from "@emotion/styled";
 
 export const UsersList = styled.ul`
+	padding: 10px 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	gap: 30px;
+	
 
 	li {
 		position: relative;
 		max-width: 380px;
-		/* height: 460px; */
 		background: linear-gradient(114.99deg, #471CA9 -0.99%, #5736A3 54.28%, #4B2A99 78.99%);
 		box-shadow: -2.5777px 6.87386px 20.6216px rgba(0, 0, 0, 0.23);
 		border-radius: 20px;
-
-		
 	}
 	.goit-logo {
 		position: absolute;
@@ -39,24 +42,20 @@ export const UsersList = styled.ul`
 	}
 
 	.user-info{
-		
 		padding: 62px 36px 36px;
-		p{
+		text-align: center;
+		& p{
 			margin: 0;
+			margin-bottom: 16px;
 			font-family: 'Montserrat', sans-serif;
 			font-weight: 500;
 			font-size: 20px;
-			line-height: 24px;
+			line-height: ${24 / 20};
 			text-transform: uppercase;
 			color: #EBD8FF;
 		}
-		/* p:not(:last-child){
-			margin-bottom: 16px;
-		} */
-
-		button{
-			border: none;
-			padding: 0;
+		& p:last-of-type {
+			margin-bottom: 26px;
 		}
 	}
 `

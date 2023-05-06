@@ -1,18 +1,66 @@
-import { Container } from '@mui/material';
-import { useGetUsersQuery } from '../../redux/usersApi';
+import { CircularProgress } from '@mui/material';
+
+import { useGetUsersQuery, useUpdateUserMutation } from '../../redux/usersApi';
 import { UsersList } from './Tweets.styled';
 import GoitLogo from '../../assets/images/goit-logo.png';
 import CardBg from '../../assets/images/card-bg.png';
+import { transformNumberComma } from './transformNumberComma';
+import { ButtonTweets } from './ButtonTweets/ButtonTweets';
+import { useEffect, useState } from 'react';
+import { addUsers } from '../../redux/usersSlice';
+import { useDispatch } from 'react-redux';
 
 export function Tweets() {
-    const { data, error, isFetching } = useGetUsersQuery();
-    // console.log(error);
-    // console.log(isFetching);
+    const dispatch = useDispatch();
+    const [page, setPage] = useState(1);
+    const { data, error, isFetching } = useGetUsersQuery(page);
+    const [updateUser, result] = useUpdateUserMutation();
+
+    useEffect(() => {
+        if (data) {
+            dispatch(addUsers(data));
+        }
+    }, [data, dispatch]);
+
+    function getBtnStatus(btnStatus, user) {
+        console.log(btnStatus);
+        if (btnStatus) {
+            updateUser({ ...user, followers: user.followers + 1 });
+        } else {
+            updateUser({ ...user, followers: user.followers - 1 });
+        }
+    }
+
+    // function handleClick(e) {
+    //     if (e.target.textContent === 'Next') {
+    //         setPage(prev => {
+    //             return prev + 1;
+    //         });
+    //     } else if (e.target.textContent === 'Prev') {
+    //         setPage(prev => {
+    //             return prev - 1;
+    //         });
+    //     }
+    // }
+    function handleClick() {
+        setPage(prev => {
+            return prev + 1;
+        });
+    }
+
     return (
-        <Container maxWidth="xl">
+        <>
             <UsersList>
+                {isFetching && !data && <CircularProgress />}
                 {data &&
-                    data.map(({ id, user, tweets, avatar, followers }) => {
+                    data.map(user => {
+                        const {
+                            id,
+                            user: name,
+                            tweets,
+                            avatar,
+                            followers,
+                        } = user;
                         return (
                             <li key={id}>
                                 <img
@@ -27,20 +75,37 @@ export function Tweets() {
                                         height="62"
                                         className="user-avatar"
                                         src={avatar}
-                                        alt={user}
+                                        alt={name}
                                     />
                                 </div>
                                 <div className="white-line"></div>
                                 <div className="user-info">
-                                    <p>{user}</p>
-                                    <p>Tweets: {tweets}</p>
-                                    <p>Followers: {followers}</p>
-                                    <button type="button">Follow</button>
+                                    <p>
+                                        {`${transformNumberComma(tweets)} `}{' '}
+                                        tweets
+                                    </p>
+                                    <p>
+                                        {`${transformNumberComma(followers)} `}
+                                        followers
+                                    </p>
+                                    <ButtonTweets
+                                        getBtnStatus={getBtnStatus}
+                                        user={user}
+                                    />
                                 </div>
                             </li>
                         );
                     })}
             </UsersList>
-        </Container>
+            {/* <button onClick={handleClick} disabled={page === 1}>
+                Prev
+            </button>
+            <button onClick={handleClick} disabled={page === 4}>
+                Next
+            </button> */}
+            <button onClick={handleClick} disabled={page === 1 || page === 4}>
+                Load More
+            </button>
+        </>
     );
 }

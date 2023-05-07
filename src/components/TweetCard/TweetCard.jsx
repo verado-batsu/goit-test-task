@@ -1,4 +1,4 @@
-import { ButtonTweets } from '../Tweets/ButtonTweets/ButtonTweets';
+import { ButtonTweets } from '../ButtonTweets/ButtonTweets';
 import { transformNumberComma } from '../../utils/transformNumberComma';
 import GoitLogo from '../../assets/images/goit-logo.png';
 import CardBg from '../../assets/images/card-bg.png';

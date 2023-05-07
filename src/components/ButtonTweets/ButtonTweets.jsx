@@ -3,7 +3,7 @@ import { Button } from './ButtonTweets.styled';
 import {
     getUserStatusFromStorage,
     setUserStatusToStorage,
-} from '../../../utils/localeStorageApi';
+} from '../../utils/localeStorageApi';
 
 export function ButtonTweets({ getBtnStatus, user }) {
     const [btnStatus, setBtnStatus] = useState(() => {

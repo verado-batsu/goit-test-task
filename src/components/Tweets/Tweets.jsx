@@ -16,11 +16,17 @@ import { TweetCard } from '../TweetCard/TweetCard';
 
 export function Tweets() {
     const dispatch = useDispatch();
-    const [page, setPage] = useState(1);
+
+    const filteredUsers = useSelector(selectFilteredUsers);
+    const [page, setPage] = useState(() => {
+        const page = filteredUsers.length / 3;
+        return page === 0 ? page + 1 : page;
+    });
+    console.log(page);
+
     const { data, error, isFetching } = useGetUsersQuery(page);
     const [updateUser, { error: updateError }] = useUpdateUserMutation();
 
-    const filteredUsers = useSelector(selectFilteredUsers);
     const filter = useSelector(selectFilter);
 
     useEffect(() => {
@@ -103,7 +109,7 @@ export function Tweets() {
                         variant="contained"
                         size="large"
                         onClick={handleClick}
-                        disabled={page === 4 || isFetching}
+                        disabled={page >= 4 || isFetching}
                     >
                         {isFetching ? 'Loading' : 'Load More'}
                     </Button>

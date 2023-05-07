@@ -1,6 +1,7 @@
 # GoIT Test Task
 
-This project was made using React, Html, Css (styled components (Emotion) and
+This project was made using React, Html, Css (styled components
+(<a href="https://emotion.sh/docs/introduction" target="_blank">Emotion</a>) and
 Material UI ), Redux Toolkit and RTK Query.
 
 Performs the function of displaying user cards with the number of their tweets

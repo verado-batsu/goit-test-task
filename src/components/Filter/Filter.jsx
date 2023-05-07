@@ -1,16 +1,20 @@
 import { Button, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateFilter } from '../../redux/usersSlice';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
+import { updateFilter } from '../../redux/filteredUsers/usersSlice';
 import { statusFilter } from '../../redux/constants';
 
 export default function Filter() {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
     const handleOpen = event => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClick = e => {
         dispatch(
             updateFilter(statusFilter[e.target.textContent.toLowerCase()])
@@ -19,13 +23,19 @@ export default function Filter() {
     };
 
     return (
-        <div>
+        <div
+            style={{
+                paddingTop: 10,
+            }}
+        >
             <Button
+                variant="contained"
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleOpen}
+                endIcon={<KeyboardArrowDownIcon />}
             >
                 Filter
             </Button>

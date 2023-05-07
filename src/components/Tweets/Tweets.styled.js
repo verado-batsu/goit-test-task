@@ -5,10 +5,8 @@ export const UsersList = styled.ul`
 	margin-bottom: 20px;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
-	gap: 30px;
+	gap: 174px;
 	
-
 	li {
 		position: relative;
 		max-width: 380px;

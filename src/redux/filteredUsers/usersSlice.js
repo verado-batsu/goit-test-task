@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { statusFilter } from "./constants";
+import { statusFilter } from "../constants";
+import { shouldAddFilteredUsers } from "../../utils/shouldAddFilteredUsers";
 
 const initialState = {
 	filteredUsers: [],
@@ -11,24 +12,7 @@ const usersSlice = createSlice({
 	initialState,
 	reducers: {
 		addUsers(state, { payload }) {
-			const shouldAdd = payload.every(user => {
-				return state.filteredUsers.every(stateUser => user?.id !== stateUser?.id)
-			});
-			if (shouldAdd) {
-				return {
-					...state,
-					filteredUsers: [...state.filteredUsers, ...payload]
-				}
-			} else {
-				return {
-					...state,
-					filteredUsers: state.filteredUsers.map(user => {
-						const followers = payload.find(payloadUser => payloadUser.id === user.id)?.followers || user.followers
-						return {...user, followers}
-					})
-				}
-			}
-			
+			return shouldAddFilteredUsers(state, payload)
 		},
 		updateUsers(state, { payload }) {
 			return {

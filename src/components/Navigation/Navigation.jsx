@@ -1,17 +1,6 @@
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
 import { Link } from './Navigation.styled';
 
-// export function Navigation() {
-//     return (
-//         <header>
-//             <nav>
-//                 <NavLink to="/">Home</NavLink>
-//                 <NavLink to="/tweets">Tweets</NavLink>
-//             </nav>
-//         </header>
-//     );
-// }
-
 export function Navigation() {
     return (
         <AppBar position="static">

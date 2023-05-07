@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { usersApi } from "./usersApi";
-import { filteredUsersReducer } from "./usersSlice";
+import { usersApi } from "../services/usersApi";
+import { filteredUsersReducer } from "./filteredUsers/usersSlice";
 
 
 export const store = configureStore({

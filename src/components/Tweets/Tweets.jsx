@@ -22,7 +22,6 @@ export function Tweets() {
         const page = filteredUsers.length / 3;
         return page === 0 ? page + 1 : page;
     });
-    console.log(page);
 
     const { data, error, isFetching } = useGetUsersQuery(page);
     const [updateUser, { error: updateError }] = useUpdateUserMutation();

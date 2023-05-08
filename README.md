@@ -10,3 +10,5 @@ Performs the function of displaying user cards with the number of their tweets
 and followers. It is possible to subscribe to one of the users and make a filter
 based on not yet subscribed and subscribed users. There is navigation to the
 Home page and Tweets.
+
+!!! The "Load more" button only appears when you select the "all" filter option.

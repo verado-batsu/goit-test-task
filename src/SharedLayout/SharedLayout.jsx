@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Navigation } from '../components/Navigation/Navigation';
-import { Container } from '@mui/material';
+import { Suspense } from 'react';
+import { Box, CircularProgress, Container } from '@mui/material';
 
 export const SharedLayout = () => {
     return (
@@ -10,7 +11,19 @@ export const SharedLayout = () => {
             </header>
             <main>
                 <Container maxWidth="xl">
-                    <Outlet />
+                    <Suspense
+                        fallback={
+                            <Box
+                                sx={{
+                                    textAlign: 'center',
+                                }}
+                            >
+                                <CircularProgress />
+                            </Box>
+                        }
+                    >
+                        <Outlet />
+                    </Suspense>
                 </Container>
             </main>
         </>

@@ -1,6 +1,6 @@
 import { HomeContent } from '../components/HomeContent/HomeContent';
 
-export function Home() {
+export default function Home() {
     return (
         <>
             <HomeContent />

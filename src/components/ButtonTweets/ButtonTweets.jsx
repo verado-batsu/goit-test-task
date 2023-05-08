@@ -5,7 +5,7 @@ import {
     setUserStatusToStorage,
 } from '../../utils/localeStorageApi';
 
-export function ButtonTweets({ getBtnStatus, user }) {
+export function ButtonTweets({ getBtnStatus, user, updateLoading }) {
     const [btnStatus, setBtnStatus] = useState(() => {
         return getUserStatusFromStorage(user);
     });
@@ -19,7 +19,12 @@ export function ButtonTweets({ getBtnStatus, user }) {
     }
 
     return (
-        <Button btnStatus={btnStatus} onClick={handleClick} type="button">
+        <Button
+            btnStatus={btnStatus}
+            onClick={handleClick}
+            type="button"
+            disabled={updateLoading}
+        >
             {btnStatus ? 'Following' : 'Follow'}
         </Button>
     );

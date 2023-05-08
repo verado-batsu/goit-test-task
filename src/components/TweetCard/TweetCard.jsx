@@ -3,7 +3,7 @@ import { transformNumberComma } from '../../utils/transformNumberComma';
 import GoitLogo from '../../assets/images/goit-logo.png';
 import CardBg from '../../assets/images/card-bg.png';
 
-export function TweetCard({ user, getBtnStatus }) {
+export function TweetCard({ user, getBtnStatus, updateLoading }) {
     const { user: name, tweets, avatar, followers } = user;
     return (
         <li>
@@ -28,7 +28,11 @@ export function TweetCard({ user, getBtnStatus }) {
                     {`${transformNumberComma(followers)} `}
                     followers
                 </p>
-                <ButtonTweets getBtnStatus={getBtnStatus} user={user} />
+                <ButtonTweets
+                    updateLoading={updateLoading}
+                    getBtnStatus={getBtnStatus}
+                    user={user}
+                />
             </div>
         </li>
     );

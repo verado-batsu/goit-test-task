@@ -9,10 +9,14 @@ import {
 } from '../../services/usersApi';
 import { UsersList } from './Tweets.styled';
 
-import { addUsers, updateUsers } from '../../redux/filteredUsers/usersSlice';
+import {
+    addUsers,
+    updateFilteredUsers,
+} from '../../redux/filteredUsers/usersSlice';
 import { selectFilter, selectFilteredUsers } from '../../redux/selectors';
 import { getUserStatusFromStorage } from '../../utils/localeStorageApi';
 import { TweetCard } from '../TweetCard/TweetCard';
+import { createUserWithoutFollowing } from '../../utils/createUserWithoutFollowing';
 
 export function Tweets() {
     const dispatch = useDispatch();
@@ -24,7 +28,8 @@ export function Tweets() {
     });
 
     const { data, error, isFetching } = useGetUsersQuery(page);
-    const [updateUser, { error: updateError }] = useUpdateUserMutation();
+    const [updateUser, { error: updateError, isLoading: updateLoading }] =
+        useUpdateUserMutation();
 
     const filter = useSelector(selectFilter);
 
@@ -41,17 +46,26 @@ export function Tweets() {
     }, [data, dispatch]);
 
     function getBtnStatus(user, btnStatus) {
+        const newUser = createUserWithoutFollowing(user);
         if (btnStatus) {
-            const followers = user.followers + 1;
-            updateUser({ ...user, followers });
+            const followers = newUser.followers + 1;
+            updateUser({ ...newUser, followers });
             dispatch(
-                updateUsers({ id: user.id, status: btnStatus, followers })
+                updateFilteredUsers({
+                    id: newUser.id,
+                    status: btnStatus,
+                    followers,
+                })
             );
         } else {
-            const followers = user.followers - 1;
-            updateUser({ ...user, followers });
+            const followers = newUser.followers - 1;
+            updateUser({ ...newUser, followers });
             dispatch(
-                updateUsers({ id: user.id, status: btnStatus, followers })
+                updateFilteredUsers({
+                    id: newUser.id,
+                    status: btnStatus,
+                    followers,
+                })
             );
         }
     }
@@ -94,6 +108,7 @@ export function Tweets() {
                                 key={user.id}
                                 user={user}
                                 getBtnStatus={getBtnStatus}
+                                updateLoading={updateLoading}
                             />
                         );
                     })}

@@ -14,7 +14,7 @@ const usersSlice = createSlice({
 		addUsers(state, { payload }) {
 			return shouldAddFilteredUsers(state, payload)
 		},
-		updateUsers(state, { payload }) {
+		updateFilteredUsers(state, { payload }) {
 			return {
 				...state,
 				filteredUsers: state.filteredUsers.map(user => {
@@ -38,6 +38,6 @@ const usersSlice = createSlice({
 	}
 })
 
-export const { addUsers, updateUsers, updateFilter } = usersSlice.actions;
+export const { addUsers, updateFilteredUsers, updateFilter } = usersSlice.actions;
 
 export const filteredUsersReducer = usersSlice.reducer;

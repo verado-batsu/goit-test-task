@@ -83,7 +83,7 @@ export function Tweets() {
                     variant="h4"
                     component="p"
                 >
-                    No users with filter "{filter}"
+                    No tweets with filter "{filter}"
                 </Typography>
             )}
             <UsersList>

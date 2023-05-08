@@ -7,7 +7,7 @@ export const Link = styled(NavLink)`
 	font-size: 18px;
 	text-decoration: none;
 	&.active{
-		color: red;
+		color: #fbff5e;
 		text-decoration: underline;
 	}
 `

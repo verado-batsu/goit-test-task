@@ -15,13 +15,18 @@ export const Button = styled.button`
 	text-transform: uppercase;
 	color: #373737;
 
+	&:hover,
+	&:focus{
+		opacity: 0.85;
+	}
+
 	cursor: pointer;
 	${(props) => {
-		if (props.btnStatus) {
-			return `background: #5CD3A8;`
-		} else {
-			return 'background: #EBD8FF;'
+			if (props.btnStatus) {
+				return `background: #5CD3A8;`
+			} else {
+				return 'background: #EBD8FF;'
+			}
 		}
 	}
-}
 `

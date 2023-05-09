@@ -18,7 +18,6 @@ export function TweetCard({ user, getBtnStatus, updateLoading }) {
                     alt={name}
                 />
             </div>
-            <div className="white-line"></div>
             <div className="user-info">
                 <p>
                     {`${transformNumberComma(tweets)} `}

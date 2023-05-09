@@ -20,14 +20,29 @@ Home page and Tweets.
 I did everything according to this
 <a href="https://github.com/gitname/react-gh-pages">instruction</a>
 
-1. Install the gh-pages npm package: <br> <code> $ npm install gh-pages
-   --save-dev </code>
+1. Install the gh-pages npm package: <br>
 
-2. In file package.json add fields: <br> <code> "homepage":
-   "https://verado-batsu.github.io/goit-test-task", </code>
+```shell
+$ npm install gh-pages
+   --save-dev
+```
 
-3. In file package.json add scripts: <br> <code> "predeploy": "npm run build",
-   "deploy": "gh-pages -d build", </code>
+2. In file package.json add fields: <br>
 
-4. Push the React app to the GitHub repository <br> <code>$ npm run
-   deploy</code>
+    ```shell
+    "homepage":"https://verado-batsu.github.io/goit-test-task"
+    ```
+
+3. In file package.json add scripts: <br>
+
+```shell
+ "predeploy": "npm run build"
+   <br> "deploy": "gh-pages -d build"
+```
+
+4. Push the React app to the GitHub repository <br>
+
+```shell
+$ npm run
+   deploy
+```

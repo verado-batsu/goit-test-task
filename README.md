@@ -1,6 +1,8 @@
 # GoIT Test Task
 
-This project was made using React, Html, Css (styled components
+This project was made according to this
+<a href="https://www.figma.com/file/zun1oP6NmS2Lmgbcj6e1IG/Test?type=design&node-id=7-89&t=1kwI2zuxzKOcnC0s-0">layout</a>
+and using React, Html, Css (styled components
 (<a href="https://emotion.sh/docs/introduction">Emotion</a>) and
 <a href="https://mui.com/">Material UI </a> ),
 <a href="https://redux-toolkit.js.org/">Redux Toolkit</a> and
@@ -12,3 +14,20 @@ based on not yet subscribed and subscribed users. There is navigation to the
 Home page and Tweets.
 
 !!! The "Load more" button only appears when you select the "all" filter option.
+
+## How I deploy this project
+
+I did everything according to this
+<a href="https://github.com/gitname/react-gh-pages">instruction</a>
+
+1. Install the gh-pages npm package: <br> <code> $ npm install gh-pages
+   --save-dev </code>
+
+2. In file package.json add fields: <br> <code> "homepage":
+   "https://verado-batsu.github.io/goit-test-task", </code>
+
+3. In file package.json add scripts: <br> <code> "predeploy": "npm run build",
+   "deploy": "gh-pages -d build", </code>
+
+4. Push the React app to the GitHub repository <br> <code>$ npm run
+   deploy</code>

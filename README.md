@@ -23,26 +23,24 @@ I did everything according to this
 1. Install the gh-pages npm package: <br>
 
 ```shell
-$ npm install gh-pages
-   --save-dev
+$ npm install gh-pages --save-dev
 ```
 
 2. In file package.json add fields: <br>
 
-    ```shell
-    "homepage":"https://verado-batsu.github.io/goit-test-task"
-    ```
+```shell
+"homepage":"https://verado-batsu.github.io/goit-test-task"
+```
 
 3. In file package.json add scripts: <br>
 
 ```shell
- "predeploy": "npm run build"
-   <br> "deploy": "gh-pages -d build"
+"predeploy": "npm run build",
+"deploy": "gh-pages -d build",
 ```
 
 4. Push the React app to the GitHub repository <br>
 
 ```shell
-$ npm run
-   deploy
+$ npm run deploy
 ```
